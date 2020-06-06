@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GF.Mvvm\GF.Mvvm.csproj" />
+    <ProjectReference Include="..\..\..\src\GF.Mvvm\GF.Mvvm.csproj" />
   </ItemGroup>
 
 </Project>
