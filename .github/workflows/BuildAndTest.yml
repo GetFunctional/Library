@@ -20,6 +20,6 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build with dotnet
-      run: dotnet build ./GF.Library/Gf.Library.sln --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
     - name: Test with dotnet
-      run: dotnet test ./GF.Library/Gf.Library.sln --no-restore --verbosity normal
+      run: dotnet test --no-restore --verbosity normal
