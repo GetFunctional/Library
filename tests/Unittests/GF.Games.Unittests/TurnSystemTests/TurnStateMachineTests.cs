@@ -1,4 +1,4 @@
-﻿using GF.Games.TurnSystem;
+﻿using System;
 using GF.Games.Unittests.TurnSystemTests.ExampleTurnSystem;
 using NUnit.Framework;
 
@@ -7,6 +7,18 @@ namespace GF.Games.Unittests.TurnSystemTests
     [TestFixture]
     public class TurnStateMachineTests
     {
+        [Test]
+        public void StateMachine_SwitchState_AsksForTransitionAllowed()
+        {
+            // Arrange
+            var player1 = new Player(new PlayerActions(), new PlayerResources(3, 0));
+            var stateMachine = new TurnStateMachine(new WaitingForTurnState());
+            var nextState = new ResolvingBattleState();
+
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => stateMachine.SwitchState(nextState));
+        }
+
         [Test]
         public void StateMachine_SwitchState_ExecutesStateEnteringBehavior()
         {

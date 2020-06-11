@@ -21,9 +21,9 @@ namespace GF.Games.TurnSystem
 
         private void AssignNewState<TState>(TState newState) where TState : IStateMachineState
         {
-            if (newState.Equals(this.CurrentState))
+            if (newState.Equals(this.CurrentState) || !this.IsAllowedTransition(this.CurrentState, newState))
             {
-                throw new InvalidOperationException();
+                throw new InvalidOperationException($"That transition is not allowed. {CurrentState.GetType().Name} -> {newState.GetType().Name}");
             }
 
             var oldState = this.CurrentState;
@@ -32,6 +32,12 @@ namespace GF.Games.TurnSystem
             this.CurrentState = newState;
 
             this.RaiseStateChanged(oldState, newState);
+        }
+
+        protected virtual bool IsAllowedTransition<TState>(IStateMachineState currentState, TState newState)
+            where TState : IStateMachineState
+        {
+            return true;
         }
 
         protected virtual void RaiseStateChanged(IStateMachineState oldState, IStateMachineState newState)
