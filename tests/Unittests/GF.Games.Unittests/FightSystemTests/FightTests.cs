@@ -1,4 +1,6 @@
-﻿using GF.Games.Unittests.FightSystemTests.FightsystemPrototype;
+﻿using System;
+using GF.Games.Unittests.EffectSystemTests.ExampleEffectSystem;
+using GF.Games.Unittests.FightSystemTests.FightsystemPrototype;
 using NUnit.Framework;
 
 namespace GF.Games.Unittests.FightSystemTests
@@ -10,7 +12,7 @@ namespace GF.Games.Unittests.FightSystemTests
         public void Fight_DidNotStartStart_PlayerIsNotOnTurn()
         {
             // Arrange
-            var fight = new Fight();
+            var fight = CreateFight();
 
             // Assert
             Assert.That(fight.IsPlayerOnTurn, Is.EqualTo(false));
@@ -20,7 +22,7 @@ namespace GF.Games.Unittests.FightSystemTests
         public void Fight_PlayerTakesTurn_EnemyIsOnTurnNext()
         {
             // Arrange
-            var fight = new Fight();
+            var fight = CreateFight();
             fight.Start();
 
             // Act
@@ -34,7 +36,7 @@ namespace GF.Games.Unittests.FightSystemTests
         public void Fight_Start_PlayerTakesFirstTurn()
         {
             // Arrange
-            var fight = new Fight();
+            var fight = CreateFight();
 
             // Act
             fight.Start();
@@ -47,7 +49,7 @@ namespace GF.Games.Unittests.FightSystemTests
         public void Fight_Start_StartsOnRoundOne()
         {
             // Arrange
-            var fight = new Fight();
+            var fight = CreateFight();
 
             // Act
             fight.Start();
@@ -60,7 +62,7 @@ namespace GF.Games.Unittests.FightSystemTests
         public void Fight_AfterBothEndedTurn_TurnTwoStarts()
         {
             // Arrange
-            var fight = new Fight();
+            var fight = CreateFight();
             fight.Start();
 
             // Act
@@ -69,6 +71,27 @@ namespace GF.Games.Unittests.FightSystemTests
 
             // Assert
             Assert.That(fight.CurrentTurn, Is.EqualTo(2));
+        }
+
+        
+        [Test]
+        public void Fight_DamageAction_DealsDamageToEnemy()
+        {
+            // Arrange
+            var fight = CreateFight();
+            fight.Start();
+
+            // Act
+            fight.HandleAction(new DamageAction(3, fight.Enemy ));
+            fight.EndTurn();
+
+            // Assert
+            Assert.Fail();
+        }
+
+        private static Fight CreateFight()
+        {
+            return new Fight(new Player(), new Enemy());
         }
     }
 }

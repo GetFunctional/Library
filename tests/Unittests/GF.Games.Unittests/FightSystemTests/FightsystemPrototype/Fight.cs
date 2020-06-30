@@ -4,20 +4,25 @@
     {
         private readonly TurnStateMachine _turnStateMachine;
 
-        public Fight() : this(new TurnStateMachine(new WaitingForFightStart()))
+        private Fight(Player player, Enemy enemy, TurnStateMachine turnStateMachine)
+        {
+            this.Player = player;
+            this.Enemy = enemy;
+            _turnStateMachine = turnStateMachine;
+        }
+
+        public Fight(Player player, Enemy enemy) : this(player, enemy, new TurnStateMachine(new WaitingForFightStart()))
         {
         }
 
-        public Fight(TurnStateMachine turnStateMachine)
-        {
-            _turnStateMachine = turnStateMachine;
-        }
+        public Player Player { get; }
 
         public int CurrentTurn => _turnStateMachine.CurrentTurn;
 
         public bool IsPlayerOnTurn => _turnStateMachine.CurrentState is PlayerTurn;
 
         public bool EnemyIsOnTurn => _turnStateMachine.CurrentState is EnemyTurn;
+        public Enemy Enemy { get; }
 
         public void Start()
         {
@@ -27,6 +32,10 @@
         public void EndTurn()
         {
             _turnStateMachine.EndTurn();
+        }
+
+        public void HandleAction(DamageAction damageAction)
+        {
         }
     }
 }

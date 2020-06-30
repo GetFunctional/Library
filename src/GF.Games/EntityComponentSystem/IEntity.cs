@@ -1,7 +1,9 @@
-﻿namespace GF.Games.EntityComponentSystem
+﻿using System;
+
+namespace GF.Games.EntityComponentSystem
 {
-    public interface IEntity
+    public interface IEntity : IEquatable<IEntity>
     {
-        TComponent GetComponent<TComponent>() where TComponent : IEntityComponent;
+        Guid Id { get; }
     }
 }

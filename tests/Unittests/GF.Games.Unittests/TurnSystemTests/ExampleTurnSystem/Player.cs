@@ -5,7 +5,7 @@ using GF.Games.EntityComponentSystem;
 
 namespace GF.Games.Unittests.TurnSystemTests.ExampleTurnSystem
 {
-    internal class Player : IEffectTarget
+    internal class Player : EntityBase, IEffectTarget
     {
         public Player(PlayerActions playerActions, PlayerResources playerResources)
         {

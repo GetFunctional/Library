@@ -5,7 +5,7 @@ using GF.Games.EntityComponentSystem;
 
 namespace GF.Games.Unittests.EffectSystemTests.ExampleEffectSystem
 {
-    internal class Player : IEffectTarget
+    internal class Player : EntityBase, IEffectTarget
     {
         private readonly EffectStackBag _effects;
 
