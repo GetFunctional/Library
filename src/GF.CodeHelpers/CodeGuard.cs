@@ -14,7 +14,6 @@ namespace GF.CodeHelpers
             if (collection == null || !collection.Any()) throw GetException(parameterName, collection);
         }
 
-
         public static void ArgumentNotNullOrEmpty<T>(IReadOnlyCollection<T> collection, string parameterName)
         {
             if (collection == null || !collection.Any()) throw GetException(parameterName, collection);
@@ -23,6 +22,18 @@ namespace GF.CodeHelpers
         public static void ArgumentNotNullOrEmpty(string str, string parameterName)
         {
             if (string.IsNullOrWhiteSpace(str)) throw GetException(parameterName, str);
+        }
+
+        public static void ArgumentTrue(bool argument, string argumentName)
+        {
+            ArgumentFalse(!argument, argumentName);
+        }
+
+        public static void ArgumentFalse(bool argument, string argumentName)
+        {
+            if (argument == false) return;
+
+            throw GetException(argumentName, argument);
         }
 
         public static void ArgumentZero(int argument, string argumentName)
@@ -114,7 +125,7 @@ namespace GF.CodeHelpers
         {
             try
             {
-                return (TValue) value;
+                return (TValue)value;
             }
             catch (InvalidCastException e)
             {

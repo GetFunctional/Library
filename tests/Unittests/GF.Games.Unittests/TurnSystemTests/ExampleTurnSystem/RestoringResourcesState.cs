@@ -1,4 +1,5 @@
-﻿using GF.Games.TurnSystem;
+﻿using GF.Games.EffectSystem;
+using GF.Games.TurnSystem;
 
 namespace GF.Games.Unittests.TurnSystemTests.ExampleTurnSystem
 {
