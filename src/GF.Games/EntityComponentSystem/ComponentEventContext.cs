@@ -1,8 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.IO;
-using System.Net.NetworkInformation;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using LightInject;
@@ -17,30 +13,9 @@ namespace GF.Games.EntityComponentSystem
 
         public ComponentEventContext(ServiceContainer serviceContainer, Assembly scanningAssembly)
         {
-            RegisterCommonTypes(serviceContainer, scanningAssembly);
-            this._mediator = serviceContainer.GetInstance<IMediator>();
+            _mediator = serviceContainer.GetInstance<IMediator>();
         }
 
-        private void RegisterCommonTypes(ServiceContainer serviceContainer, Assembly scanningAssembly)
-        {
-            serviceContainer.Register<IMediator, Mediator>();
-
-            serviceContainer.RegisterAssembly(scanningAssembly, (serviceType, implementingType) =>
-                serviceType.IsConstructedGenericType &&
-                (
-                    serviceType.GetGenericTypeDefinition() == typeof(IRequestHandler<,>) ||
-                    serviceType.GetGenericTypeDefinition() == typeof(INotificationHandler<>)
-                ));
-
-            serviceContainer.RegisterOrdered(typeof(IPipelineBehavior<,>),
-                new[]
-                {
-                    typeof(RequestPreProcessorBehavior<,>),
-                    typeof(RequestPostProcessorBehavior<,>)
-                }, type => new PerContainerLifetime());
-
-            serviceContainer.Register<ServiceFactory>(fac => fac.GetInstance);
-        }
 
 
         /// <summary>

@@ -1,4 +1,5 @@
-﻿using GF.Games.Unittests.FightSystemTests.FightsystemPrototype;
+﻿using System.Threading.Tasks;
+using GF.Games.Unittests.FightSystemTests.FightsystemPrototype;
 using NUnit.Framework;
 
 namespace GF.Games.Unittests.FightSystemTests
@@ -38,7 +39,7 @@ namespace GF.Games.Unittests.FightSystemTests
 
 
         [Test]
-        public void Fight_PlayCardWithDamageAction_DealsDamageToEnemy()
+        public async Task Fight_PlayCardWithDamageAction_DealsDamageToEnemy()
         {
             // Arrange
             var fight = CreateFight();
@@ -48,7 +49,7 @@ namespace GF.Games.Unittests.FightSystemTests
 
             // Act
             var cardWithDamageAction = new Card("CardWithDamage", new DamageEffect(6));
-            fight.PlayCard(cardWithDamageAction, enemy);
+            await fight.PlayCard(cardWithDamageAction, enemy);
             fight.EndTurn();
 
 

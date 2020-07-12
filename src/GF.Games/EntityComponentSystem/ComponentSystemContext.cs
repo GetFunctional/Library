@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace GF.Games.EntityComponentSystem
 {
@@ -7,7 +8,7 @@ namespace GF.Games.EntityComponentSystem
     {
         private readonly Dictionary<Type, IComponentSystem>
             _componentSystems = new Dictionary<Type, IComponentSystem>();
-
+        
         public ComponentSystemContext(IEnumerable<IComponentSystem> systems)
         {
             foreach (var componentSystem in systems)
@@ -34,7 +35,7 @@ namespace GF.Games.EntityComponentSystem
 
         public TComponentSystem GetSystem<TComponentSystem>() where TComponentSystem : IComponentSystem
         {
-            return (TComponentSystem)GetSystem(typeof(TComponentSystem));
+            return (TComponentSystem) this.GetSystem(typeof(TComponentSystem));
         }
     }
 }

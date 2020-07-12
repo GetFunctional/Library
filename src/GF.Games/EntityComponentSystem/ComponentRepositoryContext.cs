@@ -34,5 +34,13 @@ namespace GF.Games.EntityComponentSystem
         {
             return this.GetRepository<TComponent>().Get(entityId);
         }
+
+        public void ChangeComponent<TComponent>(Guid entityId, Func<TComponent, TComponent> changeFunc)
+            where TComponent : IEntityComponent
+        {
+            var repository = this.GetRepository<TComponent>();
+            var component = repository.Get(entityId);
+            repository.Set(entityId, changeFunc(component));
+        }
     }
 }

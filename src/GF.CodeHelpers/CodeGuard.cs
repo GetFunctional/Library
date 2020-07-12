@@ -11,17 +11,26 @@ namespace GF.CodeHelpers
 
         public static void ArgumentNotNullOrEmpty<T>(ICollection<T> collection, string parameterName)
         {
-            if (collection == null || !collection.Any()) throw GetException(parameterName, collection);
+            if (collection == null || !collection.Any())
+            {
+                throw GetException(parameterName, collection);
+            }
         }
 
         public static void ArgumentNotNullOrEmpty<T>(IReadOnlyCollection<T> collection, string parameterName)
         {
-            if (collection == null || !collection.Any()) throw GetException(parameterName, collection);
+            if (collection == null || !collection.Any())
+            {
+                throw GetException(parameterName, collection);
+            }
         }
 
         public static void ArgumentNotNullOrEmpty(string str, string parameterName)
         {
-            if (string.IsNullOrWhiteSpace(str)) throw GetException(parameterName, str);
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                throw GetException(parameterName, str);
+            }
         }
 
         public static void ArgumentTrue(bool argument, string argumentName)
@@ -31,91 +40,130 @@ namespace GF.CodeHelpers
 
         public static void ArgumentFalse(bool argument, string argumentName)
         {
-            if (argument == false) return;
+            if (argument == false)
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentZero(int argument, string argumentName)
         {
-            if (argument == 0) return;
+            if (argument == 0)
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentNotNull<T>(T argument, string argumentName)
         {
-            if (!ReferenceEquals(argument, null)) return;
+            if (!ReferenceEquals(argument, null))
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentNotNull(object argument, string argumentName)
         {
-            if (!ReferenceEquals(argument, null)) return;
+            if (!ReferenceEquals(argument, null))
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentNegative(double argument, string argumentName)
         {
-            if (argument < 0.0) return;
+            if (argument < 0.0)
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentNegative(float argument, string argumentName)
         {
-            if (argument < 0f) return;
+            if (argument < 0f)
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentNegative(int argument, string argumentName)
         {
-            if (argument < 0) return;
+            if (argument < 0)
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentNonNegative(int value, string name)
         {
-            if (value >= 0) return;
+            if (value >= 0)
+            {
+                return;
+            }
 
             throw GetException(name, value);
         }
 
         public static void ArgumentNonNegative(float value, string name)
         {
-            if (value >= 0) return;
+            if (value >= 0)
+            {
+                return;
+            }
 
             throw GetException(name, value);
         }
 
         public static void ArgumentNonNegative(double value, string name)
         {
-            if (value >= 0) return;
+            if (value >= 0)
+            {
+                return;
+            }
 
             throw GetException(name, value);
         }
 
         public static void ArgumentPositive(int value, string name)
         {
-            if (value > 0) return;
+            if (value > 0)
+            {
+                return;
+            }
 
             throw GetException(name, value);
         }
 
         public static void ArgumentPositive(float argument, string argumentName)
         {
-            if (argument > 0f) return;
+            if (argument > 0f)
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
 
         public static void ArgumentPositive(double argument, string argumentName)
         {
-            if (argument > 0.0) return;
+            if (argument > 0.0)
+            {
+                return;
+            }
 
             throw GetException(argumentName, argument);
         }
@@ -125,7 +173,7 @@ namespace GF.CodeHelpers
         {
             try
             {
-                return (TValue)value;
+                return (TValue) value;
             }
             catch (InvalidCastException e)
             {
@@ -135,12 +183,18 @@ namespace GF.CodeHelpers
 
         public static void ArgumentMatch<TValue>(TValue value, string name, Func<TValue, bool> predicate)
         {
-            if (!predicate(value)) throw GetException(name, value);
+            if (!predicate(value))
+            {
+                throw GetException(name, value);
+            }
         }
 
         public static void EnumIsDefinded(Type type, int value, string parameterName)
         {
-            if (!Enum.IsDefined(type, value)) throw new InvalidEnumArgumentException(parameterName, value, type);
+            if (!Enum.IsDefined(type, value))
+            {
+                throw new InvalidEnumArgumentException(parameterName, value, type);
+            }
         }
 
         #endregion
@@ -149,7 +203,10 @@ namespace GF.CodeHelpers
 
         private static Exception GetException(string propName, object val, Exception innerException = null)
         {
-            if (ReferenceEquals(val, null)) return GetArgumentNullException(propName, innerException);
+            if (ReferenceEquals(val, null))
+            {
+                return GetArgumentNullException(propName, innerException);
+            }
 
             return GetArgumentException(propName, val, innerException);
         }

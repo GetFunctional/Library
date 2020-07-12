@@ -11,7 +11,7 @@ namespace GF.Games.EntityComponentSystem
         {
             if (_components.ContainsKey(entityId))
             {
-                return (TComponent)_components[entityId];
+                return (TComponent) _components[entityId];
             }
 
             return default;

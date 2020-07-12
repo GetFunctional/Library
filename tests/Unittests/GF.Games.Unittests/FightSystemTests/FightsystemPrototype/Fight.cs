@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using GF.Games.EntityComponentSystem;
+﻿using System.Threading.Tasks;
 using MediatR;
 
 namespace GF.Games.Unittests.FightSystemTests.FightsystemPrototype
@@ -56,49 +54,49 @@ namespace GF.Games.Unittests.FightSystemTests.FightsystemPrototype
 
     public class AfterPlayingCardEvent : INotification
     {
-        public Card Card { get; }
-        public Enemy Target { get; }
-
         public AfterPlayingCardEvent(Card card, Enemy target)
         {
             this.Card = card;
             this.Target = target;
         }
+
+        public Card Card { get; }
+        public Enemy Target { get; }
     }
 
     public class PlayingCardEvent : INotification
     {
-        public Card Card { get; }
-        public Enemy Target { get; }
-
         public PlayingCardEvent(Card card, Enemy target)
         {
             this.Card = card;
             this.Target = target;
         }
+
+        public Card Card { get; }
+        public Enemy Target { get; }
     }
 
     public class BeforePlayingCardEvent : INotification
     {
-        public Card Card { get; }
-        public Enemy Target { get; }
-
         public BeforePlayingCardEvent(Card card, Enemy target)
         {
             this.Card = card;
             this.Target = target;
         }
+
+        public Card Card { get; }
+        public Enemy Target { get; }
     }
 
     public class PlayCardCommand : IRequest
     {
-        public Card Card { get; }
-        public Enemy Target { get; }
-
         public PlayCardCommand(Card card, Enemy target)
         {
             this.Card = card;
             this.Target = target;
         }
+
+        public Card Card { get; }
+        public Enemy Target { get; }
     }
 }
