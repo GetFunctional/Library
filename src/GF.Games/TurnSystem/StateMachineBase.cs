@@ -23,7 +23,8 @@ namespace GF.Games.TurnSystem
         {
             if (newState.Equals(this.CurrentState) || !this.IsAllowedTransition(this.CurrentState, newState))
             {
-                throw new InvalidOperationException($"That transition is not allowed. {CurrentState.GetType().Name} -> {newState.GetType().Name}");
+                throw new InvalidOperationException(
+                    $"That transition is not allowed. {this.CurrentState.GetType().Name} -> {newState.GetType().Name}");
             }
 
             var oldState = this.CurrentState;

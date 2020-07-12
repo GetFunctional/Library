@@ -5,9 +5,9 @@ namespace GF.Games.Unittests.FightSystemTests.FightsystemPrototype
     internal class PlayerFactory
 
     {
-        public Player CreateFrom(FightData fightData)
+        public Player CreateFrom(FightContext fightContext)
         {
-            return new Player(fightData.GetComponent<HealthComponent>(fightData.PlayerId));
+            return new Player(fightContext.GetComponent<HealthComponent>(fightContext.PlayerId));
         }
     }
 }

@@ -8,7 +8,7 @@ namespace GF.Games.Unittests.FightSystemTests
     {
         private static Fight CreateFight()
         {
-            return new Fight(new FightData());
+            return new Fight(new FightContext());
         }
 
         [Test]

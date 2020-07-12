@@ -7,6 +7,6 @@
             this.Health = health;
         }
 
-        public HealthComponent Health { get; private set; }
+        public HealthComponent Health { get; }
     }
 }

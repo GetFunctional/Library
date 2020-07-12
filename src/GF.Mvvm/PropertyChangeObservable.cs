@@ -36,14 +36,20 @@ namespace GF.Mvvm
         {
             var memberExpression = expression.Body as MemberExpression;
             if (memberExpression == null)
+            {
                 throw new ArgumentException("MemberExpression is expected in expression.Body", "expression");
+            }
+
             const string vblocalPrefix = "$VB$Local_";
             var member = memberExpression.Member;
             if (
                 member.MemberType == MemberTypes.Field &&
                 member.Name != null &&
                 member.Name.StartsWith(vblocalPrefix))
+            {
                 return member.Name.Substring(vblocalPrefix.Length);
+            }
+
             return member.Name;
         }
 
@@ -53,33 +59,39 @@ namespace GF.Mvvm
 
         protected bool SetField<T>(ref T field, T value, string propertyName, Action changedCallback)
         {
-            if (AreEqual(ref field, value)) return false;
+            if (this.AreEqual(ref field, value))
+            {
+                return false;
+            }
 
             // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanging(propertyName);
+            this.RaisePropertyChanging(propertyName);
             field = value;
 
             // ReSharper disable once ExplicitCallerInfoArgument
-            RaisePropertyChanged(propertyName);
+            this.RaisePropertyChanged(propertyName);
 
-            if (changedCallback != null) changedCallback();
+            if (changedCallback != null)
+            {
+                changedCallback();
+            }
 
             return true;
         }
 
         protected bool SetField<T>(ref T field, T value, Expression<Func<T>> expression, Action changedCallback)
         {
-            return SetField(ref field, value, GetPropertyName(expression), changedCallback);
+            return this.SetField(ref field, value, GetPropertyName(expression), changedCallback);
         }
 
         protected bool SetField<T>(ref T field, T value, Expression<Func<T>> expression)
         {
-            return SetField(ref field, value, expression, null);
+            return this.SetField(ref field, value, expression, null);
         }
 
         protected bool SetField<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            return SetField(ref field, value, propertyName, null);
+            return this.SetField(ref field, value, propertyName, null);
         }
 
         protected bool AreEqual<T>(ref T field, T value)
@@ -95,35 +107,47 @@ namespace GF.Mvvm
         protected void RaisePropertyChanging([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanging;
-            if (handler != null) handler(this, new PropertyChangingEventArgs(propertyName));
+            if (handler != null)
+            {
+                handler(this, new PropertyChangingEventArgs(propertyName));
+            }
         }
 
         protected void RaisePropertiesChanging(params string[] propertyNames)
         {
             if (propertyNames == null || propertyNames.Length == 0)
             {
-                RaisePropertyChanging(string.Empty);
+                this.RaisePropertyChanging(string.Empty);
                 return;
             }
 
-            foreach (var propertyName in propertyNames) RaisePropertyChanging(propertyName);
+            foreach (var propertyName in propertyNames)
+            {
+                this.RaisePropertyChanging(propertyName);
+            }
         }
 
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
 
         protected void RaisePropertiesChanged(params string[] propertyNames)
         {
             if (propertyNames == null || propertyNames.Length == 0)
             {
-                RaisePropertyChanged(string.Empty);
+                this.RaisePropertyChanged(string.Empty);
                 return;
             }
 
-            foreach (var propertyName in propertyNames) RaisePropertyChanged(propertyName);
+            foreach (var propertyName in propertyNames)
+            {
+                this.RaisePropertyChanged(propertyName);
+            }
         }
 
         #endregion

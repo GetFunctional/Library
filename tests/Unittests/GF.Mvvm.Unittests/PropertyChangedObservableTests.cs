@@ -13,7 +13,7 @@ namespace GF.Mvvm.Unittests
             public string PropertyB
             {
                 get => _propertyB;
-                set => SetField(ref _propertyB, value);
+                set => this.SetField(ref _propertyB, value);
             }
         }
 

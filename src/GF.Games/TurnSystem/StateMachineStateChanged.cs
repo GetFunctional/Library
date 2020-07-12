@@ -4,8 +4,8 @@
     {
         public StateMachineStateChanged(IStateMachineState oldState, IStateMachineState newState)
         {
-            OldState = oldState;
-            NewState = newState;
+            this.OldState = oldState;
+            this.NewState = newState;
         }
 
         public IStateMachineState OldState { get; }
