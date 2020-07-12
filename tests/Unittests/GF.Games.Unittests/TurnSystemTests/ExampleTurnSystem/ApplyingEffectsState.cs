@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using GF.Games.EffectSystem;
 using GF.Games.TurnSystem;
 
 namespace GF.Games.Unittests.TurnSystemTests.ExampleTurnSystem
@@ -11,7 +9,7 @@ namespace GF.Games.Unittests.TurnSystemTests.ExampleTurnSystem
 
         public ApplyingEffectsState(IList<Player> players)
         {
-            this._players = players;
+            _players = players;
         }
 
         public override void OnEnteringState<TState>(TState stateBefore)

@@ -1,8 +1,12 @@
-﻿using GF.Games.EntityComponentSystem;
-
-namespace GF.Games.Unittests.FightSystemTests
+﻿namespace GF.Games.Unittests.FightSystemTests.FightsystemPrototype
 {
-    public class Enemy : EntityBase
+    public class Enemy : IHasHealthComponent
     {
+        public Enemy(HealthComponent health)
+        {
+            this.Health = health;
+        }
+
+        public HealthComponent Health { get; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using GF.Games.Unittests.EffectSystemTests.ExampleEffectSystem;
-using GF.Games.Unittests.FightSystemTests.FightsystemPrototype;
+﻿using GF.Games.Unittests.FightSystemTests.FightsystemPrototype;
 using NUnit.Framework;
 
 namespace GF.Games.Unittests.FightSystemTests
@@ -8,6 +6,26 @@ namespace GF.Games.Unittests.FightSystemTests
     [TestFixture]
     public class FightTests
     {
+        private static Fight CreateFight()
+        {
+            return new Fight(new FightData());
+        }
+
+        [Test]
+        public void Fight_AfterBothEndedTurn_TurnTwoStarts()
+        {
+            // Arrange
+            var fight = CreateFight();
+            fight.Start();
+
+            // Act
+            fight.EndTurn();
+            fight.EndTurn();
+
+            // Assert
+            Assert.That(fight.CurrentTurn, Is.EqualTo(2));
+        }
+
         [Test]
         public void Fight_DidNotStartStart_PlayerIsNotOnTurn()
         {
@@ -16,6 +34,27 @@ namespace GF.Games.Unittests.FightSystemTests
 
             // Assert
             Assert.That(fight.IsPlayerOnTurn, Is.EqualTo(false));
+        }
+
+
+        [Test]
+        public void Fight_PlayCardWithDamageAction_DealsDamageToEnemy()
+        {
+            // Arrange
+            var fight = CreateFight();
+            fight.Start();
+            var enemy = fight.GetImmutableEnemyInfo();
+            var startHealth = enemy.Health.HealthValue;
+
+            // Act
+            var cardWithDamageAction = new Card("CardWithDamage", new DamageEffect(6));
+            fight.PlayCard(cardWithDamageAction, enemy);
+            fight.EndTurn();
+
+
+            // Assert
+            var enemyAfterTurn = fight.GetImmutableEnemyInfo();
+            Assert.That(enemyAfterTurn.Health.HealthValue, Is.EqualTo(startHealth - 6));
         }
 
         [Test]
@@ -56,42 +95,6 @@ namespace GF.Games.Unittests.FightSystemTests
 
             // Assert
             Assert.That(fight.CurrentTurn, Is.EqualTo(1));
-        }
-
-        [Test]
-        public void Fight_AfterBothEndedTurn_TurnTwoStarts()
-        {
-            // Arrange
-            var fight = CreateFight();
-            fight.Start();
-
-            // Act
-            fight.EndTurn();
-            fight.EndTurn();
-
-            // Assert
-            Assert.That(fight.CurrentTurn, Is.EqualTo(2));
-        }
-
-        
-        [Test]
-        public void Fight_DamageAction_DealsDamageToEnemy()
-        {
-            // Arrange
-            var fight = CreateFight();
-            fight.Start();
-
-            // Act
-            fight.HandleAction(new DamageAction(3, fight.Enemy ));
-            fight.EndTurn();
-
-            // Assert
-            Assert.Fail();
-        }
-
-        private static Fight CreateFight()
-        {
-            return new Fight(new Player(), new Enemy());
         }
     }
 }

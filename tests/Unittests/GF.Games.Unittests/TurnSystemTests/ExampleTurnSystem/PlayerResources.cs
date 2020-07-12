@@ -13,7 +13,7 @@
 
         public void RefreshActionTokensForNextTurn()
         {
-            if ((this.AvailableActions + 3) > this.MaximumActions)
+            if (this.AvailableActions + 3 > this.MaximumActions)
             {
                 this.AvailableActions = this.MaximumActions;
             }

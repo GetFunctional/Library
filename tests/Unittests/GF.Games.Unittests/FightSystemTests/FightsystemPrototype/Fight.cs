@@ -2,27 +2,36 @@
 {
     public class Fight
     {
+        private readonly EnemyFactory _enemyFactory = new EnemyFactory();
+        private readonly FightData _fightData;
+        private readonly PlayerFactory _playerFactory = new PlayerFactory();
         private readonly TurnStateMachine _turnStateMachine;
 
-        private Fight(Player player, Enemy enemy, TurnStateMachine turnStateMachine)
+        private Fight(FightData fightData, TurnStateMachine turnStateMachine)
         {
-            this.Player = player;
-            this.Enemy = enemy;
+            _fightData = fightData;
             _turnStateMachine = turnStateMachine;
         }
 
-        public Fight(Player player, Enemy enemy) : this(player, enemy, new TurnStateMachine(new WaitingForFightStart()))
+        public Fight(FightData fightData) : this(fightData, new TurnStateMachine(new WaitingForFightStart()))
         {
         }
-
-        public Player Player { get; }
 
         public int CurrentTurn => _turnStateMachine.CurrentTurn;
 
         public bool IsPlayerOnTurn => _turnStateMachine.CurrentState is PlayerTurn;
 
         public bool EnemyIsOnTurn => _turnStateMachine.CurrentState is EnemyTurn;
-        public Enemy Enemy { get; }
+
+        public Player GetImmutablePlayerInfo()
+        {
+            return _playerFactory.CreateFrom(_fightData);
+        }
+
+        public Enemy GetImmutableEnemyInfo()
+        {
+            return _enemyFactory.CreateFrom(_fightData);
+        }
 
         public void Start()
         {
@@ -34,7 +43,7 @@
             _turnStateMachine.EndTurn();
         }
 
-        public void HandleAction(DamageAction damageAction)
+        public void PlayCard(Card card, Enemy target)
         {
         }
     }
